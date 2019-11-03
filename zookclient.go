@@ -41,7 +41,7 @@ type ZooKeeperClient struct {
 
 func NewZooKeeperClient(connStr string) (*ZooKeeperClient, error) {
 	log.Printf("connecting to %s", connStr)
-	rp := curator.NewExponentialBackoffRetry(time.Second, 512, 15*time.Second)
+	rp := curator.NewExponentialBackoffRetry(time.Second, 6, 15*time.Second)
 	c := curator.NewClient(connStr, rp)
 	if err := c.Start(); err != nil {
 		return nil, errors.Wrap(err, "could not start zookeeper-client")
