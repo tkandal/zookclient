@@ -192,7 +192,7 @@ func (p *PersistentNode) processBackgroundCallback(event curator.CuratorEvent) {
 		p.lock.Unlock()
 		p.watchNode()
 		if nodeExists {
-			p.client.SetData().InBackgroundWithCallback(p.setDataCallback).ForPathWithData(p.nodePath, p.data)
+			_, _ = p.client.SetData().InBackgroundWithCallback(p.setDataCallback).ForPathWithData(p.nodePath, p.data)
 		} else {
 			// Initialisation complete
 			p.wg.Done()
@@ -207,7 +207,7 @@ func (p *PersistentNode) watchNode() {
 		return
 	}
 	if len(p.nodePath) > 0 {
-		p.client.CheckExists().UsingWatcher(p.watcher).InBackgroundWithCallback(p.checkExistsCallback).ForPath(p.nodePath)
+		_, _ = p.client.CheckExists().UsingWatcher(p.watcher).InBackgroundWithCallback(p.checkExistsCallback).ForPath(p.nodePath)
 	}
 }
 

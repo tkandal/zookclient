@@ -6,7 +6,6 @@ import (
 	"github.com/pkg/errors"
 	"github.com/samuel/go-zookeeper/zk"
 	"log"
-	"path"
 	"time"
 )
 
@@ -72,7 +71,7 @@ func (z *ZooKeeperClient) getChildren(root string, paths *[]string) error {
 	}
 	if len(children) > 0 {
 		for _, child := range children {
-			if err = z.getChildren(path.Join(root, child), paths); err != nil {
+			if err = z.getChildren(root+"/"+child, paths); err != nil {
 				return err
 			}
 		}
